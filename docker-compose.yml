@@ -1,0 +1,49 @@
+version: '2'
+networks:
+    physical:
+      external: true
+    rfemu:
+      ipam:
+        driver: default
+        config:
+        - subnet: "192.168.51.0/24" 
+services:
+  enb:
+    build: ./
+    image: srslte:latest
+    container_name: enbzmq
+    cap_add:
+      - SYS_NICE
+    networks:
+      physical: 
+        ipv4_address: 172.30.2.30
+      rfemu:
+        ipv4_address: 192.168.51.100
+    volumes:
+      - ./run_enb.sh:/root/run_enb.sh
+      - ./config:/config
+     
+    entrypoint:
+      - "/bin/sh" 
+      - "/root/run_enb.sh"
+
+  ue:
+    container_name: uezmq
+    build: ./
+    image: srslte:latest
+    cap_add:
+      - NET_ADMIN
+      - SYS_NICE
+    networks:
+      rfemu:
+        ipv4_address: 192.168.51.101
+    devices:
+      - /dev/net/tun
+    depends_on:
+      - enb
+    volumes:
+      - ./run_ue_ping.sh:/root/run_ue_ping.sh
+      - ./config:/config
+    entrypoint:
+      - /bin/sh
+      - /root/run_ue_ping.sh
