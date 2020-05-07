@@ -19,7 +19,11 @@ RUN apt-get install --no-install-recommends -yq \
 WORKDIR /root
 
 RUN apt-get --no-install-recommends -qy install build-essential git ca-certificates libzmq3-dev
-RUN git clone https://github.com/srsLTE/srsLTE.git && cd srsLTE 
+# Get srsLTE and compile
+RUN git clone https://github.com/srsLTE/srsLTE.git && \
+    cd srsLTE && \
+    git checkout tags/release_19_12
+#RUN git clone https://github.com/srsLTE/srsLTE.git && cd srsLTE  && git checkout 4fc243ae4bcec42f12c28f5f843313fad7fd90c2 
 
 RUN mkdir -p /root/srsLTE/build
 
