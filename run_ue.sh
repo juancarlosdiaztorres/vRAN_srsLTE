@@ -1,7 +1,7 @@
 #!/bin/sh
 sleep 5
 ip route del default
-srsue /config/ue.conf --usim.imsi=901550000000011 --usim.k=8b369a37163d2ae11b0ad524fe3db063 --usim.algo=milenage --usim.opc=28b575aee0f3ec89f480238db0e3b0fc --nas.apn_protocol=ipv4 &
+srsue /config/ue.conf --usim.imsi=901550000000011 --usim.k=8b369a37163d2ae11b0ad524fe3db063 --usim.algo=milenage --usim.opc=28b575aee0f3ec89f480238db0e3b0fc --nas.apn_protocol=ipv4 --pcap.enable=true --pcap.nas_enable=true &
 #let's wait till core network gives connectivity to UE
 #tun_srsue is the device name of ue
 UE_IFNAME="tun_srsue"
