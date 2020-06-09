@@ -12,3 +12,6 @@ These steps are compulsory if Docker images are not downloaded yet. If they are:
 ```
 sudo docker-compose -f docker-compose-prebuilt.yml up
 ```
+
+## e2e scenario
+If vEPC is needed, please follow vEPC_Open5gs README to deploy a fully virtualize e2e LTE net.
